@@ -1,2 +1,2 @@
 # slack-clone
-web slack clone -
+web slack clone
