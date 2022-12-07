@@ -1,0 +1,49 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:8.0
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      - MYSQL_DATABASE=slack-clone
+      - MYSQL_ROOT_PASSWORD=Aa123456!@#
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u root --password=$$MYSQL_ROOT_PASSWORD
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    ports:
+      - '3306:3306'
+    volumes:
+      - db:/var/lib/mysql
+  slack-clone-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      x-bake:
+        platforms:
+          - linux/amd64
+          - linux/arm64
+    image: slack-clone-backend
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - 8081:8081
+    environment:
+      NODE_ENV: production
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: "Aa123456!@#"
+      DB_NAME: slack-clone
+      DB_DRIVER: mysql
+      TOKEN_API_SECRET: osdjfhsdkfnsdlfmasndasdj
+      TOKEN_HOUR_LIFESPAN: 1
+    links:
+      - db
+volumes:
+  db:
+    driver: local
