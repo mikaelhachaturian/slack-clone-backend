@@ -1,5 +1,5 @@
-# slack-clone
-web slack clone
+# slack-clone-backend
+web slack clone backend written in Go
 
 ## Local Testing
 ```

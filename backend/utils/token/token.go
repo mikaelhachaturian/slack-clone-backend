@@ -44,7 +44,7 @@ func TokenValid(c *gin.Context) error {
 }
 
 func ExtractToken(c *gin.Context) string {
-	token := c.Query("token")
+	token := c.GetHeader("Token")
 	if token != "" {
 		return token
 	}

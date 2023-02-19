@@ -41,8 +41,6 @@ services:
       DB_DRIVER: mysql
       TOKEN_API_SECRET: osdjfhsdkfnsdlfmasndasdj
       TOKEN_HOUR_LIFESPAN: 1
-    links:
-      - db
 volumes:
   db:
     driver: local
