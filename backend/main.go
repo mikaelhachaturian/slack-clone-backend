@@ -25,13 +25,13 @@ func main() {
 	api := router.Group("/api")
 	{
 		api.POST("/user/register", controllers.Register)
+		api.GET("/user", middlewares.JwtAuthMiddleware(), controllers.CurrentUser)
 		api.POST("/user/login", controllers.Login)
 	}
 
 	authApi := router.Group("/api/auth")
 	{
 		authApi.Use(middlewares.JwtAuthMiddleware())
-		// protected.GET("/user", controllers.CurrentUser)
 		authApi.GET("/is-authenticated", func(c *gin.Context) {
 			c.JSON(200, gin.H{"message": "yes"})
 		})
