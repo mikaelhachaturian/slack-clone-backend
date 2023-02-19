@@ -20,7 +20,7 @@ services:
       - db:/var/lib/mysql
   slack-clone-backend:
     build:
-      context: ./backend
+      context: .
       dockerfile: Dockerfile
       x-bake:
         platforms:
