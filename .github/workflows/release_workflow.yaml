@@ -14,7 +14,7 @@ jobs:
 
       - name: Set variables
         run: |
-          echo "VERSION=$(echo $GITHUB_REF_NAME | tr -d v" >> $GITHUB_ENV
+          echo "VERSION=$(echo $GITHUB_REF_NAME | tr -d 'v')" >> $GITHUB_ENV
       - name: Build and Publish
         run: |
           echo $VERSION
